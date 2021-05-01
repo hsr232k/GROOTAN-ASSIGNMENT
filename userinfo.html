@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>userinfo</title>
+</head>
+<body>
+    <div class = "container" style="margin-left:400px;margin-top: 100px;margin-bottom: 100px;margin-right: 100px;"> 
+        <table class="displaytable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th style="padding-left: 30px;">Id</th>
+                    <th style="padding-left: 30px;">Age</th>
+                    <th style="padding-left: 30px;">First name</th>
+                    <th style="padding-left: 30px;">Last name</th>
+                    <th style="padding-left: 30px;">DOB</th>
+                    <th style="padding-left: 30px;">Address</th>
+                </tr>
+            </thead>
+            <tbody id="data">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const queryString = window.location.search;
+        console.log(queryString);
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('id');
+        console.log(id);
+
+        fetch("https://test003.free.beeceptor.com/test001").then(
+            res=>{
+                res.json().then(
+                    data=>{
+                        console.log(data);
+                        if(data.length>0)
+                        {
+                            var temp="";
+
+                            data.forEach((element) => {
+                                if(element.id==id)
+                                {
+                                    temp+="<tr>";
+                                    temp+="<td style=\"padding-top:30px;\">"+element.name+"</a>"+"</td>";
+                                    temp+="<td style=\"padding-left: 30px;padding-top:30px;\">"+element.id+"</td>";
+                                    temp+="<td style=\"padding-left: 30px;padding-top:30px;\">"+element.age+"</td>";
+                                    temp+="<td style=\"padding-left: 30px;padding-top:30px;\">"+element.firstname+"</td>";
+                                    temp+="<td style=\"padding-left: 30px;padding-top:30px;\">"+element.lastname+"</td>";
+                                    temp+="<td style=\"padding-left: 30px;padding-top:30px;\">"+element.dob+"</td>";
+                                    temp+="<td style=\"padding-left: 30px;padding-top:30px;\">"+element.address+"</td>";
+                                }
+                            })
+
+                            document.getElementById("data").innerHTML=temp;
+                        }
+                    }
+                )
+            }
+        )
+    </script>
+</body>
+</html>
